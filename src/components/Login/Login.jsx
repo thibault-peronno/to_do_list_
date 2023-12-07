@@ -22,9 +22,9 @@ function Login() {
     <section className="login">
       <div className="login_form">
         <div>
-          <h1>Ta liste de tâches</h1>
+          <h1 className="login-form_h1">Ta liste de tâches</h1>
         </div>
-        <div>
+        <div className="login_form-input">
           <h2 className="login_h2">Se connecter</h2>
           <form className="login_form" onSubmit={handleSubmitLogin}>
             <label htmlFor="email" className="login-form_label">
@@ -33,7 +33,7 @@ function Login() {
             <input
               id="email"
               type="email"
-              placeholder="Ton e-mail"
+              placeholder="exemple@gmail.com"
               className="login-form_input"
               value={email}
               onChange={(evt) =>
@@ -46,7 +46,7 @@ function Login() {
             <input
               id="Password"
               type="Password"
-              placeholder="Ton mot de passe"
+              placeholder="********"
               className="login-form_input"
               value={password}
               onChange={(evt) =>
@@ -59,10 +59,10 @@ function Login() {
             <p>Se créer un compte</p>
           </form>
         </div>
-      </div>
-      <div>
-        <p>Thibault PERONNO</p>
-        <p>Pour le titre Concepteur et Développeur d'Application</p>
+        <div className="login_footer">
+          <p className="login_footer-text owner">Thibault PERONNO</p>
+          <p className="login_footer-text">Pour le titre Concepteur et Développeur d'Application</p>
+        </div>
       </div>
     </section>
   );

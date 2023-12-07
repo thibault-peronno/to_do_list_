@@ -9,7 +9,7 @@ function App(){
 
  return (
    <AuthContext.Provider value={{ isLog, setIsLog }}>
-    <div class="stroke">
+    <div className="stroke">
      <Login />
     </div>
    </AuthContext.Provider>
