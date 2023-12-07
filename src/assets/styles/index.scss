@@ -36,9 +36,20 @@ body {
   min-height: 100vh;
 }
 
+section{
+  height: 100%;
+}
+
 h1 {
   font-size: 3.2em;
   line-height: 1.2;
+  text-align: center;
+}
+
+h2{
+  margin:0 0 10px 0;
+  font-size: 1.2em;
+  color: #052d50;
 }
 
 label{
@@ -71,6 +82,10 @@ button {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.login_footer-text {
+  text-align: center;
 }
 
 // @media (prefers-color-scheme: light) {
