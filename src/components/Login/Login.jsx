@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./login.scss";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -56,7 +57,7 @@ function Login() {
             <button type="submit" className="login-form_btn">
               Se connnecter
             </button>
-            <p>Se créer un compte</p>
+            <Link to='/register'><p>Se créer un compte</p></Link>
           </form>
         </div>
         <div className="login_footer">

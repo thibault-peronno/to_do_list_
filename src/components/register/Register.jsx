@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./register.scss";
+import { Link } from "react-router-dom";
 
 function RegisterPage() {
   const [registerName, setRegisterName] = useState("");
@@ -55,18 +56,8 @@ function RegisterPage() {
                 console.log("register email");
               }}
             />
-            <label htmlFor="password">Mot de passe</label>
-            <input
-              type="password"
-              id="password"
-              placeholder="******"
-              value={registerEmail}
-              onChange={(evt) => {
-                console.log("register email");
-              }}
-            />
             <button type="submit">Créer mon compte</button>
-            <p>Se créer un compte</p>
+            <Link to='/login'><p>Se connecter</p></Link>
           </form>
         </div>
         <div className="login_footer">

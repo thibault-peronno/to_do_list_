@@ -14,3 +14,14 @@
         flex-direction: column;
     }
 }
+
+@media screen and (min-width: 699px) {
+    .register{
+    
+        &_h2_form{
+            width: 20%;
+        }
+    
+        &_form{}
+    }
+  }
