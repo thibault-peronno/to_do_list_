@@ -5,13 +5,16 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./components/Login/Login";
 import Home from "./components/home/Home";
 import Register from "./components/register/Register";
-const AuthContext = createContext(null);
+export const AuthContext = createContext(false);
+export const UserContext = createContext(null)
 
 function App(){
    const [isLog, setIsLog] = useState(false);
+   const [user, setUser] = useState(null)
 
  return (
-   <AuthContext.Provider value={{ isLog, setIsLog }}>
+   <AuthContext.Provider value={{isLog, setIsLog} }>
+    <UserContext.Provider value= {{user, setUser}}>
     <div className="stroke">
       {!isLog && (
         <Routes>
@@ -25,6 +28,7 @@ function App(){
         </Routes>
       )}
     </div>
+    </UserContext.Provider>
    </AuthContext.Provider>
  );
 

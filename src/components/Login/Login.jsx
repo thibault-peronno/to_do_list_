@@ -1,10 +1,21 @@
-import { useState } from "react";
 import "./login.scss";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate  } from "react-router-dom";
+import { useContext } from "react";
+import axios from "axios";
+import { AuthContext, UserContext } from "../../App.jsx";
+
+const axiosInstance = axios.create({
+  baseURL: "http://localhost:3000/api/",
+  withCredentials: true,
+});
 
 function Login() {
+  const { isLog, setIsLog } = useContext(AuthContext);
+  const { setUser } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPasswsord] = useState("");
+  const navigate = useNavigate();
 
   const handleChangeFieldLogin = (value, name) => {
     if (name == "email") {
@@ -17,6 +28,21 @@ function Login() {
   const handleSubmitLogin = (evt) => {
     evt.preventDefault();
     console.log(email, password);
+    axiosInstance
+      .post("auth/login", {
+        identifiant: email,
+        password: password,
+      })
+      .then(function (response) {
+        setIsLog(true);
+        setUser(response.data);
+        console.log(response);
+        console.log(isLog);
+        navigate("/")
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   return (
@@ -57,12 +83,16 @@ function Login() {
             <button type="submit" className="login-form_btn">
               Se connnecter
             </button>
-            <Link to='/register'><p>Se créer un compte</p></Link>
+            <Link to="/register">
+              <p>Se créer un compte</p>
+            </Link>
           </form>
         </div>
         <div className="login_footer">
           <p className="login_footer-text owner">Thibault PERONNO</p>
-          <p className="login_footer-text">Pour le titre Concepteur et Développeur d'Application</p>
+          <p className="login_footer-text">
+            Pour le titre Concepteur et Développeur d'Application
+          </p>
         </div>
       </div>
     </section>
