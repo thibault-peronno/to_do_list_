@@ -1,6 +1,6 @@
 import { useState, createContext } from "react";
 import './app.scss';
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 
 import Login from "./components/Login/Login";
 import Home from "./components/home/Home";
@@ -11,6 +11,8 @@ export const UserContext = createContext(null)
 function App(){
    const [isLog, setIsLog] = useState(false);
    const [user, setUser] = useState(null)
+   const location = useLocation();
+console.log(location.pathname);
 
  return (
    <AuthContext.Provider value={{isLog, setIsLog} }>
@@ -26,6 +28,9 @@ function App(){
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>
+      )}
+      {(!isLog && location.pathname !== '/login' && location.pathname !== '/register') && (
+        <Navigate replace to={"/login"} />
       )}
     </div>
     </UserContext.Provider>
