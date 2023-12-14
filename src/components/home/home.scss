@@ -1,14 +1,15 @@
 .home-section{
-    height: 100%;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    flex-wrap: wrap;
+    flex-wrap: no-wrap;
 }
 .home{
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 90vh;
     &_name{
         width: 100%;
         text-align: end;
@@ -21,7 +22,25 @@
         display: flex;
         flex-direction: column;
     }
+    &_tasks_li{
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+    }
+    &_tasks_icon{
+        width: 40px;
+    }
 }
 .footer{
     text-align: center;
 }
+
+@media screen and (min-width: 699px) {
+    .home_form{
+        width: 30%;
+    }
+    .home_taks-ul{
+        width:30%
+    }
+  }

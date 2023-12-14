@@ -46,7 +46,7 @@ function Home(){
     }
     const handleDelete= (evt, task_id) =>{
         evt.preventDefault();
-        console.log(task_id);
+        console.log(evt,task_id);
         axiosInstance.delete('task/'+task_id)
     }
     return(
@@ -65,14 +65,14 @@ function Home(){
                     <button type="submit">Ajouter</button>
                 </form>
                 <h1>Mes tâches</h1>
-                <ul>
+                <ul className="home_taks-ul">
                     {tasks.map((task)=>{
-                        return <li class="home_tasks_li" key={task.id}>
+                        return <li className="home_tasks_li" key={task.id}>
                             <p>{task.description}</p>
                             <div>
-                                <img class="home_tasks_icon" src="../../../public/assets/svg/edit.svg" alt="editer la tâche" />
-                                <button onclick={handleDelete(task.id)}>
-                                    <img class="home_tasks_icon" src="../../../public/assets/svg/delete.svg" alt="supprimer la tâche" />
+                                <img className="home_tasks_icon" src="../../../public/assets/svg/edit.svg" alt="editer la tâche" />
+                                <button className="delete-button" onClick={(e)=>handleDelete(e,task.id)}>
+                                    <img className="home_tasks_icon" src="../../../public/assets/svg/delete.svg" alt="supprimer la tâche" />
                                 </button>
                             </div>
                         </li>
