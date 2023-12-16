@@ -1,53 +1,63 @@
+// import axios from 'axios';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useContext } from "react";
-import './home.scss';
 import { UserContext } from "../../App.jsx";
+import TasksService from '../../services/tasks.service.js';
+import './home.scss';
 
 
-const axiosInstance = axios.create({
-    baseURL: "http://localhost:3000/api/",
-    withCredentials: true,
-    credentials: 'include'
-});
+// const axiosInstance = axios.create({
+//     baseURL: "http://localhost:3000/api/",
+//     withCredentials: true,
+//     credentials: 'include'
+// });
 
 function Home(){
+    const tasksService = new TasksService();
     const { user } = useContext(UserContext);
     const [tasks, setTasks] = useState([]);
     const [task, setTask] = useState([]);
     useEffect(()=>{
-        axiosInstance.get('task/tasks/'+user.userID)
-        .then((response)=>{
-            console.log(response);
-            setTasks(response.data)
-        })
-        .catch((error)=>{
-            console.log(error);
-        })
+        const fetchTasks = async () => {
+            try {
+                const tasksData = await tasksService.findAll(user.userID);
+                console.log(tasksData);
+                setTasks(tasksData.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchTasks();
     },[])
     const handleChangeFieldTask = (task) =>{
         setTask(task);
     }
-    const handleNewTask = (evt) => {
+    const handleNewTask = async (evt) => {
         evt.preventDefault();
-        console.log();
-        axiosInstance.post('task/', {
+        const newvalue = {
             "description" : task,
             "isDone" : false,
             "user_id" : user.userID
-        })
-        .then(function (response){
-            console.log(response);
-            setTasks(tasks =>[response.data, ...tasks])
-        })
-        .catch(function (error){
+        }
+        try {
+            const newTask = await tasksService.new(newvalue);
+            setTasks(tasks =>[...tasks, newTask.data[0]])
+        } catch (error) {
             console.log(error);
-        })
+        }
     }
-    const handleDelete= (evt, task_id) =>{
+    const handleDelete= async (evt, task_id) =>{
         evt.preventDefault();
         console.log(evt,task_id);
-        axiosInstance.delete('task/'+task_id)
+        try {
+            const deleteTask = await tasksService.delete(task_id);
+            console.log(deleteTask);
+            const newListTasks = await tasksService.findAll(user.userID);
+            setTasks(newListTasks.data);
+        } catch (error) {
+            console.log(error);
+        }
+        // axiosInstance.delete('task/'+task_id)
     }
     return(
         <section className='home-section'>
