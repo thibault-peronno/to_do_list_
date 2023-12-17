@@ -39,6 +39,19 @@ class TasksService {
         })
         return axiosResponse;
     }
+    async updateIsdone(task){
+        task.isdone = !task.isdone;
+        console.log(task);
+        const axiosResponse = await axiosInstance.put('task/'+task.id, {task})
+        .then((response)=>{
+            console.log(response);
+            return response
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
+        return axiosResponse;
+    }
 
 }
 
