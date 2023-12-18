@@ -16,7 +16,9 @@ function Home() {
   const { user } = useContext(UserContext);
   const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState([]);
-//   const [isChecked, setIsChecked] = useState(false);
+  const [updateTask, setUpdateTask] = useState([]);
+  const [updateIsActif, setUpdateIsActif] = useState(false);
+  //   const [isChecked, setIsChecked] = useState(false);
   useEffect(() => {
     const fetchTasks = async () => {
       try {
@@ -46,6 +48,22 @@ function Home() {
       console.log(error);
     }
   };
+  const updatedTask = async (evt, updateValue)=> {
+    evt.preventDefault();
+    console.log(updateTask);
+    const updatedTask = {
+      description: updateValue.description,
+      isDone: updateValue.isdone,
+      id: updateValue.id,
+    }
+    console.log(updatedTask);
+    try {
+      const taskUpdated = await tasksService.update(updatedTask);
+      console.log(taskUpdated);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   const handleDelete = async (evt, task_id) => {
     evt.preventDefault();
     console.log(evt, task_id);
@@ -63,16 +81,42 @@ function Home() {
     evt.preventDefault();
     console.log(evt, task);
     try {
-        const isDone = await tasksService.updateIsdone(task);
-        console.log(isDone);
-        const newListTasks = await tasksService.findAll(user.userID);
+      const isDone = await tasksService.updateIsdone(task);
+      console.log(isDone);
+      const newListTasks = await tasksService.findAll(user.userID);
       setTasks(newListTasks.data);
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
+  };
+  const toggleIsActif = (task) => {
+    console.log(task);
+    setUpdateIsActif(true);
+    setUpdateTask(task);
+  };
+  const toggleNotActif = () => {
+    setUpdateIsActif(false);
+  };
+  const UpdateFieldTask = (updatedTask) =>{
+    setUpdateTask(updateTask => ({...updateTask, ...updateTask.description = updatedTask}))
+    console.log(updateTask);
   }
   return (
-    <section className="home-section">
+    <section className="home-section ">
+      <div className={updateIsActif ? "update_isActif" : "update"}>
+        <input
+          className="update_text"
+          type="text"
+          value={updateTask.description}
+          onChange={(evt) => UpdateFieldTask(evt.target.value)}
+        />
+        <div className="update_btns">
+          <button className="update_btns_cancel" onClick={toggleNotActif}>
+            X
+          </button>
+          <button className="update_btns_valid" onClick={(e) =>updatedTask(e, updateTask)}>V</button>
+        </div>
+      </div>
       <div className="home">
         <span className="home_name">
           <div>
@@ -97,15 +141,27 @@ function Home() {
             return (
               <div className="home_tasks_task" key={task.id}>
                 <span className="home_tasks-task_input">
-                  <input type="checkbox" checked={task.isdone === 1 ? true : false } id={task.id} onClick={(e) => handleToggleDone(e, task)}/>
+                  <input
+                    type="checkbox"
+                    checked={
+                      task.isdone === 1 || task.isdone === true ? true : false
+                    }
+                    id={task.id}
+                    onClick={(e) => handleToggleDone(e, task)}
+                  />
                   <p>{task.description}</p>
                 </span>
                 <div>
-                  <img
-                    className="home_tasks_icon"
-                    src="../../../public/assets/svg/edit.svg"
-                    alt="editer la tâche"
-                  />
+                  <button
+                    className="edit-button"
+                    onClick={() => toggleIsActif(task)}
+                  >
+                    <img
+                      className="home_tasks_icon"
+                      src="../../../public/assets/svg/edit.svg"
+                      alt="editer la tâche"
+                    />
+                  </button>
                   <button
                     className="delete-button"
                     onClick={(e) => handleDelete(e, task.id)}

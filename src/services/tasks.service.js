@@ -39,6 +39,17 @@ class TasksService {
         })
         return axiosResponse;
     }
+    async update(updateValue){
+        const axiosResponse = await axiosInstance.put('task/'+updateValue.task_id, updateValue)
+        .then((response)=>{
+            console.log(response);
+            return response
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
+        return axiosResponse;
+    }
     async updateIsdone(task){
         task.isdone = !task.isdone;
         console.log(task);

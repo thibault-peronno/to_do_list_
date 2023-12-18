@@ -37,7 +37,7 @@ body {
   min-height: 100vh;
 }
 
-section{
+section {
   height: 100%;
 }
 
@@ -47,17 +47,17 @@ h1 {
   text-align: center;
 }
 
-h2{
-  margin:0 0 10px 0;
+h2 {
+  margin: 0 0 10px 0;
   font-size: 1.2em;
   color: #052d50;
 }
 
-label{
-  font-size:1rem
+label {
+  font-size: 1rem;
 }
 
-input{
+input {
   height: 45px;
   border: 1px solid black;
   border-radius: 2px;
@@ -84,8 +84,8 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-
-.delete-button{
+.delete-button,
+.edit-button {
   border-radius: none;
   color: transparent;
   border: none;
@@ -98,7 +98,9 @@ button:focus-visible {
   transition: none;
 }
 .delete-button:focus,
-.delete-button:focus-visible {
+.delete-button:focus-visible,
+.edit-button:focus,
+.edit-button:focus-visible {
   outline: none;
 }
 
