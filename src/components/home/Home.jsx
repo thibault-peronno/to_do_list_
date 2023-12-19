@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../App.jsx";
 import TasksService from "../../services/tasks.service.js";
+import { Link } from "react-router-dom";
 import "./home.scss";
 
 // const axiosInstance = axios.create({
@@ -123,7 +124,9 @@ function Home() {
       <div className="home">
         <span className="home_name">
           <div>
+            <Link to="/profil">
             <p>thibault</p>
+            </Link>
             <img src="" alt="" />
           </div>
         </span>

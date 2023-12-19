@@ -28,12 +28,12 @@ function Login() {
   const handleSubmitLogin = (evt) => {
     evt.preventDefault();
     console.log(email, password);
-    axiosInstance
-      .post("auth/login", {
+    axiosInstance.post("auth/login", {
         identifiant: email,
         password: password,
       })
       .then(function (response) {
+        console.log(response);
         setIsLog(true);
         setUser(response.data);
         console.log(response);

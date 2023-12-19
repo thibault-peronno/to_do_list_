@@ -1,0 +1,28 @@
+.profil{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    height: 90vh;
+    &_container{
+        height: 100%;
+    }
+    &_button{
+        color: #052d50 ;
+        border: #052d50 2px solid;
+        background-color: white;
+    }
+}
+
+@media screen and (min-width: 699px){
+    .profil{
+        &_container {
+            width: 30%;
+        }
+        &_button{
+            width: 100%;
+        }
+
+    }
+
+}
