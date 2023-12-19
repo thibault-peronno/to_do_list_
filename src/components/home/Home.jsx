@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // import axios from 'axios';
 import { useEffect, useState } from "react";
 import { useContext } from "react";
@@ -38,7 +39,7 @@ function Home() {
     evt.preventDefault();
     const newvalue = {
       description: task,
-      isDone: false,
+      isdone: false,
       user_id: user.userID,
     };
     try {
@@ -53,13 +54,15 @@ function Home() {
     console.log(updateTask);
     const updatedTask = {
       description: updateValue.description,
-      isDone: updateValue.isdone,
+      isdone: updateValue.isdone,
       id: updateValue.id,
     }
     console.log(updatedTask);
     try {
       const taskUpdated = await tasksService.update(updatedTask);
-      console.log(taskUpdated);
+      const newListTasks = await tasksService.findAll(user.userID);
+      setTasks(newListTasks.data);
+      toggleNotActif();
     } catch (error) {
       console.log(error);
     }

@@ -2,9 +2,10 @@ import { useState, createContext } from "react";
 import './app.scss';
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 
-import Login from "./components/Login/Login";
+import Login from "./components/login/Login";
 import Home from "./components/home/Home";
 import Register from "./components/register/Register";
+import Profil from "./components/profil/Profil";
 export const AuthContext = createContext(false);
 export const UserContext = createContext(null)
 
@@ -27,6 +28,7 @@ console.log(location.pathname);
       {isLog && (
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/profil" element={<Profil />} />
         </Routes>
       )}
       {(!isLog && location.pathname !== '/login' && location.pathname !== '/register') && (
