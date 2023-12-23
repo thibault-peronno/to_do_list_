@@ -31,9 +31,6 @@
     display: flex;
     align-items: center;
   }
-  &_tasks_icon {
-    width: 40px;
-  }
 }
 input[type=checkbox] {
     margin: 0 10px 0 0;
@@ -65,30 +62,7 @@ input[type=checkbox] {
     border: 1px solid;
   }
   &_btns{
-    &_cancel{
-      border-radius: inherit;
-      color: black;
-      border: none;
-      margin: 0.5em;
-      padding: 0;
-      font-size: 1em;
-      font-weight: normal;
-      font-family: inherit;
-      background-color: transparent;
-      transition: none;
-    }
-    &_valid{
-      border-radius: inherit;
-    color: black;
-    border: none;
-    margin: 0.5em;
-    padding: 0;
-    font-size: 1em;
-    font-weight: normal;
-    font-family: inherit;
-    background-color: transparent;
-    transition: none;
-    }
+
   }
 }
 

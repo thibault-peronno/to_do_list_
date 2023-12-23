@@ -115,10 +115,10 @@ function Home() {
           onChange={(evt) => UpdateFieldTask(evt.target.value)}
         />
         <div className="update_btns">
-          <button className="update_btns_cancel" onClick={toggleNotActif}>
+          <button className="cancel-button" onClick={toggleNotActif}>
             X
           </button>
-          <button className="update_btns_valid" onClick={(e) =>updatedTask(e, updateTask)}>V</button>
+          <button className="valid-button" onClick={(e) =>updatedTask(e, updateTask)}>V</button>
         </div>
       </div>
       <div className="home">
@@ -163,7 +163,7 @@ function Home() {
                     onClick={() => toggleIsActif(task)}
                   >
                     <img
-                      className="home_tasks_icon"
+                      className="home_tasks_icon icon"
                       src="../../../public/assets/svg/edit.svg"
                       alt="editer la tâche"
                     />
@@ -173,7 +173,7 @@ function Home() {
                     onClick={(e) => handleDelete(e, task.id)}
                   >
                     <img
-                      className="home_tasks_icon"
+                      className="home_tasks_icon icon"
                       src="../../../public/assets/svg/delete.svg"
                       alt="supprimer la tâche"
                     />

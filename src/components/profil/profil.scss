@@ -1,28 +1,76 @@
-.profil{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: center;
-    height: 90vh;
-    &_container{
-        height: 100%;
-    }
-    &_button{
-        color: #052d50 ;
-        border: #052d50 2px solid;
-        background-color: white;
-    }
+.form_isActif{
+    display: block;
+    width: 100%;
+}
+.none{
+    display: none;
 }
 
-@media screen and (min-width: 699px){
-    .profil{
-        &_container {
-            width: 30%;
-        }
-        &_button{
-            width: 100%;
-        }
+.profil {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  height: 90vh;
+  width: 100%;
+  &_container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
+    &-btns {
+      text-align: end;
     }
+    &-infos {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-content: center;
+      width: 30%;
+      height: 50%;
+      align-self: center;
+      justify-content: space-between;
+    }
+  }
+  &_link{
+    width: 100%;
+  }
+  &_button {
+    color: #052d50;
+    border: #052d50 2px solid;
+    background-color: white;
+    margin: 0.5em 0;
+  }
+  &_about {
+    text-align: center;
+  }
+}
 
+.container-names {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  align-self: center;
+  margin: 20px 0;
+}
+.container-mail {
+  text-align: center;
+}
+
+.container-infos_names_mail{
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (min-width: 699px) {
+  .profil {
+    &_container {
+      width: 100%;
+    }
+    &_button {
+      width: 100%;
+    }
+  }
 }
