@@ -62,7 +62,7 @@ input {
   border: 1px solid black;
   border-radius: 2px;
   margin: 10px 0;
-  padding: 0 0 0 2px;
+  padding: 5px;
   font-size: 1rem;
 }
 
@@ -72,8 +72,8 @@ button {
   border: 1px solid transparent;
   margin: 0.5em;
   padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
+  font-size: 1.2em;
+  font-weight: bold;
   font-family: inherit;
   background-color: #052d50;
   cursor: pointer;
@@ -135,6 +135,20 @@ button:focus-visible {
 }
 
 .login_footer-text {
+  text-align: center;
+}
+
+.displayValidatedMessage{
+  display: block;
+  color: #098810;
+  font-weight: bold;
+  text-align: center;
+}
+
+.displayErrorMessage{
+  display: block;
+  color: #880909;
+  font-weight: bold;
   text-align: center;
 }
 

@@ -6,8 +6,8 @@ const axiosInstance = axios.create({
 });
 
 class TasksService {
-    async findAll(userID){
-        const axiosResponse = await axiosInstance.get('task/tasks/'+userID)
+    async findAll(id){
+        const axiosResponse = await axiosInstance.get('task/tasks/'+id)
         .then((response)=>{
             console.log(response);
             return response

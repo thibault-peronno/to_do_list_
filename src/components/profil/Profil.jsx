@@ -2,98 +2,122 @@ import "./profil.scss";
 import { useContext, useState } from "react";
 import { UserContext } from "../../App.jsx";
 import { Link } from "react-router-dom";
+import ProfilService from "../../services/profil.service.js";
 
 function Profil() {
-  const { user } = useContext(UserContext);
+  const profilServie = new ProfilService();
+  const { user, setUser } = useContext(UserContext);
   const [updateIsActif, setUpdateIsActif] = useState(false);
-  const [registerName, setRegisterName] = useState("");
-  const [registerLastname, setRegisterLastname] = useState("");
-  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerName, setRegisterName] = useState(user.firstname);
+  const [registerLastname, setRegisterLastname] = useState(user.lastname);
+  const [registerEmail, setRegisterEmail] = useState(user.email);
+  const [ showMessage, setShowMessage] = useState(false);
+  const [ validatedMessage, setValidatedMessage ] =useState("");
+  const [ errordMessage, setErrordMessage ] =useState("");
 
   const updateProfil = () => {
     console.log(updateIsActif);
-    setUpdateIsActif(true)
-  }
+    setUpdateIsActif(true);
+  };
   const returnProfil = () => {
-    setUpdateIsActif(false)
-  }
+    setUpdateIsActif(false);
+  };
 
   const handleChangeFieldLogin = (value, field) => {
     if (field == "email") {
-        setRegisterEmail(value);
+      setRegisterEmail(value);
     } else if (field == "lastname") {
-        setRegisterLastname(value);
-    }
-    else if (field == "name"){
-        setRegisterName(value);
+      setRegisterLastname(value);
+    } else if (field == "name") {
+      setRegisterName(value);
     }
   };
 
-  const handleSubmitProfil = (evt) => {
-    console.log(evt, 'submit profil');
-  }
+  const handleSubmitUpdateProfil = async (evt) => {
+    evt.preventDefault();
+    const updateDatas = {
+      firstname: registerName,
+      lastname: registerLastname,
+      identifiant: registerEmail,
+      id: user.id
+    };
+    const addMessage = (message, status) => {
+      if(status == 'ok'){
+        setValidatedMessage(message);
+      }else if(status == 'error'){
+        setErrordMessage(message)
+      }
+      setShowMessage(true);
+      setTimeout(() =>setShowMessage(false), 5000);
+    }
+    const UpdatedProfil = await profilServie.udpateUser(updateDatas, user.id);
+    console.log(UpdatedProfil, "submit profil");
+    if(UpdatedProfil.status == 200){
+      setUser(UpdatedProfil.data.data[0]);
+      addMessage(UpdatedProfil.data.message, UpdatedProfil.data.status)
+      returnProfil()
+    }
+  };
 
   return (
     <section className="profil">
-        <span className={!updateIsActif ? "profil"  : "none"}>
-      <div className="profil_container">
-        <span className="profil_container-btns">
-          <button
-            className="edit-button"
-            onClick={() => updateProfil()}
-          >
-            <img
-              className="profil_tasks_icon icon"
-              src="../../../public/assets/svg/edit.svg"
-              alt="editer l'utilisateur'"
-            />
-          </button>
-          <button
-            className="delete-button"
-            //   onClick={(e) => handleDelete(e, task.id)}
-          >
-            <img
-              className="profil_tasks_icon icon"
-              src="../../../public/assets/svg/delete.svg"
-              alt="supprimer l'utilisateur'"
-            />
-          </button>
-        </span>
-        <div className="profil_container-infos">
-          <span className="container-infos_names_mail">
-            <div className="container-names">
-              <p>{user.name}</p>
-              <p>{user.lastname}</p>
-            </div>
-            <p className="container-mail">{user.email}</p>
+      <span className={!updateIsActif ? "profil" : "none"}>
+        <div className="profil_container">
+          <span className="profil_container-btns">
+            <button className="edit-button" onClick={() => updateProfil()}>
+              <img
+                className="profil_tasks_icon icon"
+                src="../../../public/assets/svg/edit.svg"
+                alt="editer l'utilisateur'"
+              />
+            </button>
+            <button
+              className="delete-button"
+              //   onClick={(e) => handleDelete(e, task.id)}
+            >
+              <img
+                className="profil_tasks_icon icon"
+                src="../../../public/assets/svg/delete.svg"
+                alt="supprimer l'utilisateur'"
+              />
+            </button>
           </span>
-          <Link to="/" className="profil_link">
-            <button className="profil_button">Retour à mes tâches</button>
-          </Link>
+          <div className="profil_container-infos">
+            <span className="container-infos_names_mail">
+                <p className={showMessage ? "displayValidatedMessage" : "none"}>{ validatedMessage }</p>
+                <p className={errordMessage ? "displayErrorMessage" : "none"}>{ validatedMessage }</p>
+              <div className="container-names">
+                <p>{user.firstname}</p>
+                <p>{user.lastname}</p>
+              </div>
+              <p className="container-mail">{user.email}</p>
+            </span>
+            <Link to="/" className="profil_link">
+              <button className="profil_button">Retour à mes tâches</button>
+            </Link>
+          </div>
+          <p className="about">A propos</p>
         </div>
-        <p className="profil_about">A propos</p>
-      </div>
-        </span>
-        <span className={updateIsActif ? "form_isActif" : "none"}>
-      <div className="form_container">
-        <div className="form_container-btns">
-          <button
-            className="cancel-button"
-            onClick={() => returnProfil()}
+      </span>
+      <span className={updateIsActif ? "form_isActif" : "none"}>
+        <div className="form_container">
+          <div className="form_container-btns">
+            <button className="cancel-button" onClick={() => returnProfil()}>
+              <p>X</p>
+            </button>
+          </div>
+          <form
+            className="form_container-infos"
+            onSubmit={handleSubmitUpdateProfil}
           >
-            <p>X</p>
-          </button>
-        </div>
-        <div className="form_container-infos">
-          <form onSubmit={handleSubmitProfil}>
-          <label htmlFor="name">Nom</label>
+            <label htmlFor="name">Nom</label>
             <input
               type="text"
               id="name"
               placeholder="ton nom"
               value={registerName}
               onChange={(evt) => {
-                handleChangeFieldLogin(evt.target.value, "nom");
+                handleChangeFieldLogin(evt.target.value, "name");
               }}
             />
             <label htmlFor="lastname">Prénom</label>
@@ -116,12 +140,11 @@ function Profil() {
                 handleChangeFieldLogin(evt.target.value, "email");
               }}
             />
+            <button type="submit">Modifier</button>
           </form>
+          <p className="about">A propos</p>
         </div>
-        <p className="form_about">A propos</p>
-      </div>
-
-        </span>
+      </span>
     </section>
   );
 }

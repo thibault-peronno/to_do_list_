@@ -24,7 +24,7 @@ function Home() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const tasksData = await tasksService.findAll(user.userID);
+        const tasksData = await tasksService.findAll(user.id);
         console.log(tasksData);
         setTasks(tasksData.data);
       } catch (error) {
@@ -41,7 +41,7 @@ function Home() {
     const newvalue = {
       description: task,
       isdone: false,
-      user_id: user.userID,
+      user_id: user.id,
     };
     try {
       const newTask = await tasksService.new(newvalue);
@@ -61,7 +61,7 @@ function Home() {
     console.log(updatedTask);
     try {
       const taskUpdated = await tasksService.update(updatedTask);
-      const newListTasks = await tasksService.findAll(user.userID);
+      const newListTasks = await tasksService.findAll(user.id);
       setTasks(newListTasks.data);
       toggleNotActif();
     } catch (error) {
@@ -74,7 +74,7 @@ function Home() {
     try {
       const deleteTask = await tasksService.delete(task_id);
       console.log(deleteTask);
-      const newListTasks = await tasksService.findAll(user.userID);
+      const newListTasks = await tasksService.findAll(user.id);
       setTasks(newListTasks.data);
     } catch (error) {
       console.log(error);
@@ -87,7 +87,7 @@ function Home() {
     try {
       const isDone = await tasksService.updateIsdone(task);
       console.log(isDone);
-      const newListTasks = await tasksService.findAll(user.userID);
+      const newListTasks = await tasksService.findAll(user.id);
       setTasks(newListTasks.data);
     } catch (error) {
       console.log(error);
