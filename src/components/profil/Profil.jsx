@@ -16,7 +16,6 @@ function Profil() {
   const [ errordMessage, setErrordMessage ] =useState("");
 
   const updateProfil = () => {
-    console.log(updateIsActif);
     setUpdateIsActif(true);
   };
   const returnProfil = () => {
@@ -44,19 +43,24 @@ function Profil() {
     const addMessage = (message, status) => {
       if(status == 'ok'){
         setValidatedMessage(message);
+        setShowMessage(true);
       }else if(status == 'error'){
-        setErrordMessage(message)
+        setErrordMessage(message);
+        setShowMessage(true);
       }
-      setShowMessage(true);
       setTimeout(() =>setShowMessage(false), 5000);
     }
     const UpdatedProfil = await profilServie.udpateUser(updateDatas, user.id);
-    console.log(UpdatedProfil, "submit profil");
     if(UpdatedProfil.status == 200){
       setUser(UpdatedProfil.data.data[0]);
       addMessage(UpdatedProfil.data.message, UpdatedProfil.data.status)
-      returnProfil()
+    } else if (UpdatedProfil.status == 500) {
+      addMessage(UpdatedProfil.data.message, UpdatedProfil.data.status)
     }
+    else if (UpdatedProfil.status == 404) {
+      addMessage(UpdatedProfil.data.message, UpdatedProfil.data.status)
+    }
+    returnProfil()
   };
 
   return (
@@ -85,7 +89,7 @@ function Profil() {
           <div className="profil_container-infos">
             <span className="container-infos_names_mail">
                 <p className={showMessage ? "displayValidatedMessage" : "none"}>{ validatedMessage }</p>
-                <p className={errordMessage ? "displayErrorMessage" : "none"}>{ validatedMessage }</p>
+                <p className={showMessage ? "displayErrorMessage" : "none"}>{ errordMessage }</p>
               <div className="container-names">
                 <p>{user.firstname}</p>
                 <p>{user.lastname}</p>
