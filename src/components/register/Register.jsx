@@ -11,6 +11,7 @@ function RegisterPage() {
   const [registerPassword, setPasswsord] = useState("");
   const [registerError, setRegisterError] = useState([]);
   const [validationMessage, setValidationMessage] = useState("");
+  const [emailExist, setEmailExist] = useState("");
   const [showMessage, setShowMessage] = useState(false);
   const navigate = useNavigate();
 
@@ -43,7 +44,7 @@ function RegisterPage() {
           setRegisterError([...registerError, error.message]);
           console.log(registerError);
         });
-        console.log('length', registerError.length);
+        console.log("length", registerError.length);
         if (newUserRegitered.data.error.details.length > 0) {
           console.log("condition error");
           setShowMessage(true);
@@ -51,17 +52,25 @@ function RegisterPage() {
             setShowMessage(false), setRegisterError([]);
           }, 5000);
         }
-      }else if (newUserRegitered.status == 201){
-        setValidationMessage(newUserRegitered.data.message)
+      } else if (newUserRegitered.status == 201) {
+        setValidationMessage(newUserRegitered.data.message);
         setShowMessage(true);
-          setTimeout(() => {
-            setShowMessage(false);
-            navigate("/login");
-          }, 5000);
+        setTimeout(() => {
+          setShowMessage(false);
+          setValidationMessage("");
+          navigate("/login");
+        }, 5000);
+      } else if (newUserRegitered.status == 409) {
+        setEmailExist(newUserRegitered.data.message);
+        setShowMessage(true);
+        setTimeout(() => {
+          setShowMessage(false);
+          setEmailExist("");
+        }, 5000);
       }
     } catch (error) {
       console.log("error", error);
-      return error
+      return error;
     }
   };
 
@@ -82,8 +91,11 @@ function RegisterPage() {
             );
           })}
           <p className={showMessage ? "displayValidatedMessage" : "none"}>
-                {validationMessage}
-              </p>
+            {validationMessage}
+          </p>
+          <p className={showMessage ? "displayErrorMessage" : "none"}>
+            {emailExist}
+          </p>
           <form className="register_form" onSubmit={handleSubmitRegister}>
             <label htmlFor="name">Nom</label>
             <input
