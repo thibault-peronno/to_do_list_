@@ -20,6 +20,8 @@ function Home() {
   const [task, setTask] = useState([]);
   const [updateTask, setUpdateTask] = useState([]);
   const [updateIsActif, setUpdateIsActif] = useState(false);
+  const [errorValidation, setErrorValidation] = useState([]);
+  const [showMessage, setShowMessage] = useState(false);
   //   const [isChecked, setIsChecked] = useState(false);
   useEffect(() => {
     const fetchTasks = async () => {
@@ -40,12 +42,29 @@ function Home() {
     evt.preventDefault();
     const newvalue = {
       description: task,
-      isdone: false,
+      isDone: false,
       user_id: user.id,
     };
     try {
       const newTask = await tasksService.new(newvalue);
-      setTasks((tasks) => [...tasks, newTask.data[0]]);
+      console.log('new task', newTask);
+      if(newTask.status === 201){
+        setTasks((tasks) => [...tasks, newTask.data[0]]);
+      }
+      console.log(newTask.status);
+      if (newTask.status === 500) {
+        console.log(newTask.data.message.details);
+        newTask.data.message.details.forEach((error) => {
+          console.log(error.message);
+          setErrorValidation([...errorValidation, error.message]);
+          console.log(errorValidation);
+          setShowMessage(true);
+          setTimeout(() => {
+            setShowMessage(false), setErrorValidation([]);
+          }, 5000);
+        });
+
+    }
     } catch (error) {
       console.log(error);
     }
@@ -55,12 +74,24 @@ function Home() {
     console.log(updateTask);
     const updatedTask = {
       description: updateValue.description,
-      isdone: updateValue.isdone,
+      isDone: updateValue.isDone,
       id: updateValue.id,
     }
     console.log(updatedTask);
     try {
       const taskUpdated = await tasksService.update(updatedTask);
+      if (taskUpdated.status === 500) {
+        console.log(taskUpdated.data.message.details);
+        setErrorValidation([...errorValidation, taskUpdated.data.error]);
+        taskUpdated.data.message.details.forEach((error) => {
+          console.log(error.message);
+          setErrorValidation([...errorValidation, error.message]);
+          console.log(errorValidation);
+          setShowMessage(true);
+          setTimeout(() => {
+            setShowMessage(false), setErrorValidation([]);
+          }, 5000);
+        });}
       const newListTasks = await tasksService.findAll(user.id);
       setTasks(newListTasks.data);
       toggleNotActif();
@@ -85,7 +116,7 @@ function Home() {
     evt.preventDefault();
     console.log(evt, task);
     try {
-      const isDone = await tasksService.updateIsdone(task);
+      const isDone = await tasksService.updateisDone(task);
       console.log(isDone);
       const newListTasks = await tasksService.findAll(user.id);
       setTasks(newListTasks.data);
@@ -131,6 +162,15 @@ function Home() {
           </div>
         </span>
         <p className="home_p">Une nouvelle tâche ?</p>
+        {errorValidation.map((message) => {
+            console.log("map", message, showMessage);
+            return (
+              <p className={showMessage ? "displayErrorMessage" : "none"}>
+                {message}
+              </p>
+            );
+          })
+        }
         <form onSubmit={handleNewTask} className="home_form">
           <input
             type="text"
@@ -150,7 +190,7 @@ function Home() {
                   <input
                     type="checkbox"
                     checked={
-                      task.isdone === 1 || task.isdone === true ? true : false
+                      task.isDone === 1 || task.isDone === true ? true : false
                     }
                     id={task.id}
                     onClick={(e) => handleToggleDone(e, task)}

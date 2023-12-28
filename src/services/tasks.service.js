@@ -25,6 +25,7 @@ class TasksService {
         })
         .catch(function (error){
             console.log(error);
+            return error.response
         });
         return axiosResponse
     }
@@ -47,11 +48,12 @@ class TasksService {
         })
         .catch((error)=>{
             console.log(error);
+            return error.response;
         })
         return axiosResponse;
     }
-    async updateIsdone(task){
-        task.isdone = !task.isdone;
+    async updateisDone(task){
+        task.isDone = !task.isDone;
         console.log(task);
         const axiosResponse = await axiosInstance.put('task/'+task.id, task)
         .then((response)=>{
