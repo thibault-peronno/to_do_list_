@@ -148,6 +148,14 @@ function RegisterPage() {
           <p className="login_footer-text">
             Pour le titre Concepteur et Développeur d'Application
           </p>
+          <div className="social-media">
+            <Link to="https://www.linkedin.com/in/thibault-peronno/">
+            <img src="../assets/svg/linkedin.svg" alt="" className="icon"/>
+            </Link>
+            <Link to="https://github.com/thibault-peronno">
+            <img src="../assets/svg/github.svg" alt="" className="icon"/>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

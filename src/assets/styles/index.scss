@@ -97,7 +97,7 @@ button:focus-visible {
   transition: none;
 }
 
-.valid-button{
+.valid-button {
   color: #098810;
   border-radius: inherit;
   border: none;
@@ -138,21 +138,26 @@ button:focus-visible {
   text-align: center;
 }
 
-.displayValidatedMessage{
+.displayValidatedMessage {
   display: block;
   color: #098810;
   font-weight: bold;
   text-align: center;
 }
 
-.none{
+.none {
   display: none;
 }
 
-.displayErrorMessage{
+.displayErrorMessage {
   display: block;
   color: #880909;
   font-weight: bold;
+  text-align: center;
+}
+
+.social-media {
+  margin: 10px 0 0 0;
   text-align: center;
 }
 
