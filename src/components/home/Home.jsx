@@ -17,7 +17,7 @@ function Home() {
   const tasksService = new TasksService();
   const { user } = useContext(UserContext);
   const [tasks, setTasks] = useState([]);
-  const [task, setTask] = useState([]);
+  const [task, setTask] = useState("");
   const [updateTask, setUpdateTask] = useState([]);
   const [updateIsActif, setUpdateIsActif] = useState(false);
   const [errorValidation, setErrorValidation] = useState([]);
@@ -50,6 +50,7 @@ function Home() {
       console.log('new task', newTask);
       if(newTask.status === 201){
         setTasks((tasks) => [...tasks, newTask.data[0]]);
+        setTask("");
       }
       console.log(newTask.status);
       if (newTask.status === 500) {
