@@ -12,7 +12,13 @@
   height: 90vh;
   &_name {
     width: 100%;
-    text-align: end;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+    button{
+      margin-left: 10px
+    }
   }
   &_p {
   }

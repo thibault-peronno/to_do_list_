@@ -1,27 +1,29 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// import axios from 'axios';
+import axios from 'axios';
 import { useEffect, useState } from "react";
 import { useContext } from "react";
-import { UserContext } from "../../App.jsx";
+import { AuthContext, UserContext } from "../../App.jsx";
 import TasksService from "../../services/tasks.service.js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./home.scss";
 
-// const axiosInstance = axios.create({
-//     baseURL: "http://localhost:3000/api/",
-//     withCredentials: true,
-//     credentials: 'include'
-// });
+const axiosInstance = axios.create({
+    baseURL: "http://localhost:3000/api/",
+    withCredentials: true,
+    credentials: 'include'
+});
 
 function Home() {
   const tasksService = new TasksService();
   const { user } = useContext(UserContext);
+  const { isLog, setIsLog } = useContext(AuthContext);
   const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState("");
   const [updateTask, setUpdateTask] = useState([]);
   const [updateIsActif, setUpdateIsActif] = useState(false);
   const [errorValidation, setErrorValidation] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
+  const navigate = useNavigate();
   //   const [isChecked, setIsChecked] = useState(false);
   useEffect(() => {
     const fetchTasks = async () => {
@@ -142,6 +144,14 @@ function Home() {
     setUpdateTask(updateTask => ({...updateTask, ...updateTask.description = updatedTask}))
     console.log(updateTask);
   }
+  const logout = (evt)=>{
+    evt.preventDefault();
+    axiosInstance.get("auth/logout")
+    .then((response)=>{
+      setIsLog(false);
+      navigate('/login');
+    })
+  }
   return (
     <section className="home-section ">
       <div className={updateIsActif ? "update_isActif" : "update"}>
@@ -160,12 +170,20 @@ function Home() {
       </div>
       <div className="home">
         <span className="home_name">
-          <div>
             <Link to="/profil">
-            <p>thibault</p>
+            <p>{ user.lastname }</p>
             </Link>
+            <button
+              className="edit-button"
+              onClick={(e) => logout(e)}
+            >
+            <img
+              className="home_tasks_icon icon"
+              src="../../../public/assets/svg/logout.svg"
+              alt="se déconnecter"
+            />
+                  </button>
             <img src="" alt="" />
-          </div>
         </span>
         <p className="home_p">Une nouvelle tâche ?</p>
         {errorValidation.map((message) => {
