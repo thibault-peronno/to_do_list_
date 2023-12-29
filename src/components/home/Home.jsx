@@ -82,16 +82,21 @@ function Home() {
       const taskUpdated = await tasksService.update(updatedTask);
       if (taskUpdated.status === 500) {
         console.log(taskUpdated.data.message.details);
-        setErrorValidation([...errorValidation, taskUpdated.data.error]);
-        taskUpdated.data.message.details.forEach((error) => {
-          console.log(error.message);
-          setErrorValidation([...errorValidation, error.message]);
-          console.log(errorValidation);
-          setShowMessage(true);
-          setTimeout(() => {
-            setShowMessage(false), setErrorValidation([]);
-          }, 5000);
-        });}
+        console.log(taskUpdated.data.error);
+        setErrorValidation(taskUpdated.data.error);
+        console.log(errorValidation);
+        if(taskUpdated.data.message.details){
+          taskUpdated.data.message.details.forEach((error) => {
+            console.log(error.message);
+            setErrorValidation([...errorValidation, error.message]);
+            console.log(errorValidation);
+          });
+        }
+        setShowMessage(true);
+        setTimeout(() => {
+          setShowMessage(false), setErrorValidation([]);
+        }, 5000);
+      }
       const newListTasks = await tasksService.findAll(user.id);
       setTasks(newListTasks.data);
       toggleNotActif();
