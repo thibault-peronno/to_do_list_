@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import axios from 'axios';
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AuthContext, UserContext } from "../../App.jsx";
@@ -8,9 +8,9 @@ import { Link, useNavigate } from "react-router-dom";
 import "./home.scss";
 
 const axiosInstance = axios.create({
-    baseURL: "http://localhost:3000/api/",
-    withCredentials: true,
-    credentials: 'include'
+  baseURL: "http://localhost:3000/api/",
+  withCredentials: true,
+  credentials: "include",
 });
 
 function Home() {
@@ -49,37 +49,34 @@ function Home() {
     };
     try {
       const newTask = await tasksService.new(newvalue);
-      console.log('new task', newTask);
-      if(newTask.status === 201){
+      console.log("new task", newTask);
+      if (newTask.response.status === 201) {
         setTasks((tasks) => [...tasks, newTask.data[0]]);
         setTask("");
-      }
-      console.log(newTask.status);
-      if (newTask.status === 500) {
-        console.log(newTask.data.message.details);
-        newTask.data.message.details.forEach((error) => {
+      } else if (newTask.response.status === 400) {
+        console.log(newTask.response.data.details);
+        newTask.response.data.details.forEach((error) => {
           console.log(error.message);
-          setErrorValidation([...errorValidation, error.message]);
+          setErrorValidation(errorValidation=>[...errorValidation, error.message]);
           console.log(errorValidation);
           setShowMessage(true);
           setTimeout(() => {
             setShowMessage(false), setErrorValidation([]);
           }, 5000);
         });
-
-    }
+      }
     } catch (error) {
       console.log(error);
     }
   };
-  const updatedTask = async (evt, updateValue)=> {
+  const updatedTask = async (evt, updateValue) => {
     evt.preventDefault();
     console.log(updateTask);
     const updatedTask = {
       description: updateValue.description,
       isDone: updateValue.isDone,
       id: updateValue.id,
-    }
+    };
     console.log(updatedTask);
     try {
       const taskUpdated = await tasksService.update(updatedTask);
@@ -88,7 +85,7 @@ function Home() {
         console.log(taskUpdated.data.error);
         setErrorValidation(taskUpdated.data.error);
         console.log(errorValidation);
-        if(taskUpdated.data.message.details){
+        if (taskUpdated.data.message.details) {
           taskUpdated.data.message.details.forEach((error) => {
             console.log(error.message);
             setErrorValidation([...errorValidation, error.message]);
@@ -106,7 +103,7 @@ function Home() {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
   const handleDelete = async (evt, task_id) => {
     evt.preventDefault();
     console.log(evt, task_id);
@@ -140,18 +137,20 @@ function Home() {
   const toggleNotActif = () => {
     setUpdateIsActif(false);
   };
-  const UpdateFieldTask = (updatedTask) =>{
-    setUpdateTask(updateTask => ({...updateTask, ...updateTask.description = updatedTask}))
+  const UpdateFieldTask = (updatedTask) => {
+    setUpdateTask((updateTask) => ({
+      ...updateTask,
+      ...(updateTask.description = updatedTask),
+    }));
     console.log(updateTask);
-  }
-  const logout = (evt)=>{
+  };
+  const logout = (evt) => {
     evt.preventDefault();
-    axiosInstance.get("auth/logout")
-    .then((response)=>{
+    axiosInstance.get("auth/logout").then((response) => {
       setIsLog(false);
-      navigate('/login');
-    })
-  }
+      navigate("/login");
+    });
+  };
   return (
     <section className="home-section ">
       <div className={updateIsActif ? "update_isActif" : "update"}>
@@ -165,36 +164,37 @@ function Home() {
           <button className="cancel-button" onClick={toggleNotActif}>
             X
           </button>
-          <button className="valid-button" onClick={(e) =>updatedTask(e, updateTask)}>V</button>
+          <button
+            className="valid-button"
+            onClick={(e) => updatedTask(e, updateTask)}
+          >
+            V
+          </button>
         </div>
       </div>
       <div className="home">
         <span className="home_name">
-            <Link to="/profil">
-            <p>{ user.lastname }</p>
-            </Link>
-            <button
-              className="edit-button"
-              onClick={(e) => logout(e)}
-            >
+          <Link to="/profil">
+            <p>{user.lastname}</p>
+          </Link>
+          <button className="edit-button" onClick={(e) => logout(e)}>
             <img
               className="home_tasks_icon icon"
               src="../../../public/assets/svg/logout.svg"
               alt="se déconnecter"
             />
-                  </button>
-            <img src="" alt="" />
+          </button>
+          <img src="" alt="" />
         </span>
         <p className="home_p">Une nouvelle tâche ?</p>
         {errorValidation.map((message) => {
-            console.log("map", message, showMessage);
-            return (
-              <p className={showMessage ? "displayErrorMessage" : "none"}>
-                {message}
-              </p>
-            );
-          })
-        }
+          console.log("map", message, showMessage);
+          return (
+            <p className={showMessage ? "displayErrorMessage" : "none"}>
+              {message}
+            </p>
+          );
+        })}
         <form onSubmit={handleNewTask} className="home_form">
           <input
             type="text"
