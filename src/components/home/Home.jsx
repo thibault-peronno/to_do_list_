@@ -154,12 +154,20 @@ function Home() {
   return (
     <section className="home-section ">
       <div className={updateIsActif ? "update_isActif" : "update"}>
-        <input
+      <textarea
+      className="update_text"
+        name="postContent"
+        value={updateTask.description}
+        rows={4}
+        cols={40}
+        onChange={(evt) => UpdateFieldTask(evt.target.value)}
+      />
+        {/* <input
           className="update_text"
           type="text"
           value={updateTask.description}
           onChange={(evt) => UpdateFieldTask(evt.target.value)}
-        />
+        /> */}
         <div className="update_btns">
           <button className="cancel-button" onClick={toggleNotActif}>
             X
@@ -221,7 +229,7 @@ function Home() {
                   />
                   <p>{task.description}</p>
                 </span>
-                <div>
+                <div className="home_tasks-btn">
                   <button
                     className="edit-button"
                     onClick={() => toggleIsActif(task)}

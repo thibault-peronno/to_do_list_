@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 90vh;
+  min-height: 90vh;
   &_name {
     width: 100%;
     display: flex;
@@ -30,12 +30,17 @@
   &_tasks_task {
     display: flex;
     flex-wrap: nowrap;
-    align-items: center;
+    align-items: start;
+    flex-direction: column;
     justify-content: space-between;
   }
   &_tasks-task_input {
     display: flex;
     align-items: center;
+  }
+
+  &_tasks-btn{
+    align-self: end;
   }
 }
 input[type=checkbox] {
@@ -54,7 +59,7 @@ input[type=checkbox] {
   border-radius: 5px;
   padding: 10px;
   position: fixed;
-  left: 40%;
+  left: 12%;
   top: 40%;
 }
 .update{
@@ -76,7 +81,27 @@ input[type=checkbox] {
   .home_form {
     width: 30%;
   }
-  .home_taks-div {
-    width: 30%;
+  .home{
+    &_taks-div {
+      width: 30%;
+    }
+
+    &_tasks_task {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: start;
+      justify-content: space-between;
+    }
+
+    &_tasks-btn{
+      align-self: end;
+    }
+
   }
+
+  .update_isActif{
+    left: 40%;
+  }
+  
 }

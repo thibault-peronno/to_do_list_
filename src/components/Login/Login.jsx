@@ -66,7 +66,7 @@ function Login() {
           <p className={showMessage ? "displayErrorMessage" : "none"}>
                 {loginError}
               </p>
-          <form className="login_form" onSubmit={handleSubmitLogin}>
+          <form className="login-form" onSubmit={handleSubmitLogin}>
             <label htmlFor="email" className="login-form_label">
               Identifiant
             </label>
