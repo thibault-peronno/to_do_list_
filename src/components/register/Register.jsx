@@ -38,10 +38,22 @@ function RegisterPage() {
     try {
       const newUserRegitered = await registerService.newUser(newUser);
       console.log(newUserRegitered);
-      if (newUserRegitered.status == 500) {
+      if (newUserRegitered.status == 400) {
         newUserRegitered.data.error.details.forEach((error) => {
           console.log(error.message);
-          setRegisterError([...registerError, error.message]);
+          /**
+           * In React, when you're updating state based on the previous state, you should use a function inside your setState call. This function will receive the previous state as its argument and should return the new state.
+            Here's a breakdown of the line setRegisterError(prevState => [...prevState, error.message]);:
+
+            setRegisterError: This is the function you're using to update your state. It's likely defined in your component like so: const [registerError, setRegisterError] = useState([]);
+            (prevState => ...): This is a function that takes the previous state as its argument. The prevState here represents the current state at the time this update is being applied.
+            [...prevState, error.message]: This is creating a new array that includes all elements from prevState (the spread operator ... is used to copy all elements from prevState), followed by error.message. This effectively adds the new error message to the end of the existing array of error messages.
+            So, in summary, this line is saying "take the current state, add this new error message to the end of it, and then update the state with this new array".
+           */
+          setRegisterError((registerError) => [
+            ...registerError,
+            error.message,
+          ]);
           console.log(registerError);
         });
         console.log("length", registerError.length);
@@ -150,10 +162,10 @@ function RegisterPage() {
           </p>
           <div className="social-media">
             <Link to="https://www.linkedin.com/in/thibault-peronno/">
-            <img src="../assets/svg/linkedin.svg" alt="" className="icon"/>
+              <img src="../assets/svg/linkedin.svg" alt="" className="icon" />
             </Link>
             <Link to="https://github.com/thibault-peronno">
-            <img src="../assets/svg/github.svg" alt="" className="icon"/>
+              <img src="../assets/svg/github.svg" alt="" className="icon" />
             </Link>
           </div>
         </div>
