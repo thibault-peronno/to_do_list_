@@ -13,7 +13,7 @@ function Profil() {
   const [registerEmail, setRegisterEmail] = useState(user.email);
   const [ showMessage, setShowMessage] = useState(false);
   const [ validatedMessage, setValidatedMessage ] =useState("");
-  const [ errordMessage, setErrordMessage ] =useState("");
+  const [ errordMessage, setErrordMessage ] =useState([]);
 
   const updateProfil = () => {
     setUpdateIsActif(true);
@@ -40,25 +40,24 @@ function Profil() {
       identifiant: registerEmail,
       id: user.id
     };
-    const addMessage = (message, status) => {
-      if(status == 'ok'){
-        setValidatedMessage(message);
+    const updatedProfil = await profilServie.udpateUser(updateDatas, user.id);
+    // console.log('profil ligne 54', updatedProfil);
+    if(updatedProfil.status === 400){
+      updatedProfil.data.details.forEach((error)=>{
+        setErrordMessage((errordMessage)=>[...errordMessage, error.message]);
         setShowMessage(true);
-      }else if(status == 'error'){
-        setErrordMessage(message);
-        setShowMessage(true);
-      }
-      setTimeout(() =>setShowMessage(false), 5000);
-    }
-    const UpdatedProfil = await profilServie.udpateUser(updateDatas, user.id);
-    if(UpdatedProfil.status == 200){
-      setUser(UpdatedProfil.data.data[0]);
-      addMessage(UpdatedProfil.data.message, UpdatedProfil.data.status)
-    } else if (UpdatedProfil.status == 500) {
-      addMessage(UpdatedProfil.data.message, UpdatedProfil.data.status)
-    }
-    else if (UpdatedProfil.status == 404) {
-      addMessage(UpdatedProfil.data.message, UpdatedProfil.data.status)
+          setTimeout(() => {
+            setShowMessage(false), setErrordMessage([]);
+          }, 5000);
+      })
+    }else if(updatedProfil.status == 200){
+      // console.log('ligne 54 profil', updatedProfil.status);
+      setUser(updatedProfil.data.data[0]);
+      setValidatedMessage(updatedProfil.data.message, updatedProfil.data.status);
+      setShowMessage(true);
+      setTimeout(() => {
+        setShowMessage(false), setErrordMessage([]);
+      }, 5000);
     }
     returnProfil()
   };
@@ -89,7 +88,14 @@ function Profil() {
           <div className="profil_container-infos">
             <span className="container-infos_names_mail">
                 <p className={showMessage ? "displayValidatedMessage" : "none"}>{ validatedMessage }</p>
-                <p className={showMessage ? "displayErrorMessage" : "none"}>{ errordMessage }</p>
+                {errordMessage.map((message) => {
+            console.log("map", message, showMessage);
+            return (
+              <p className={showMessage ? "displayErrorMessage" : "none"}>
+                {message}
+              </p>
+            );
+          })}
               <div className="container-names">
                 <p>{user.firstname}</p>
                 <p>{user.lastname}</p>
