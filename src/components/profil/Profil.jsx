@@ -100,7 +100,8 @@ function Profil() {
                 <p>{user.firstname}</p>
                 <p>{user.lastname}</p>
               </div>
-              <p className="container-mail">{user.email}</p>
+              {/* It is a temporary fixed. I should check my API to change a little part of code */}
+              <p className="container-mail">{user.email || user.identifiant}</p>
             </span>
             <Link to="/" className="profil_link">
               <button className="profil_button">Retour à mes tâches</button>
