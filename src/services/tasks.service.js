@@ -9,7 +9,6 @@ class TasksService {
     async findAll(id){
         const axiosResponse = await axiosInstance.get('task/tasks/'+id)
         .then((response)=>{
-            console.log(response);
             return response
         })
         .catch((error)=>{
@@ -20,7 +19,6 @@ class TasksService {
     async new(newvalue){
         const axiosResponse= axiosInstance.post('task/', newvalue)
         .then(function (response){
-            console.log(response);
             return response
         })
         .catch(function (error){
@@ -32,7 +30,6 @@ class TasksService {
     async delete(id){
         const axiosResponse = await axiosInstance.delete('task/'+id)
         .then((response)=>{
-            console.log(response);
             return response
         })
         .catch((error)=>{
@@ -43,7 +40,6 @@ class TasksService {
     async update(updateValue){
         const axiosResponse = await axiosInstance.put('task/'+updateValue.task_id, updateValue)
         .then((response)=>{
-            console.log(response);
             return response
         })
         .catch((error)=>{
@@ -54,10 +50,8 @@ class TasksService {
     }
     async updateisDone(task){
         task.isDone = !task.isDone;
-        console.log(task);
         const axiosResponse = await axiosInstance.put('task/'+task.id, task)
         .then((response)=>{
-            console.log(response);
             return response
         })
         .catch((error)=>{

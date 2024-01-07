@@ -13,7 +13,6 @@ function App(){
    const [isLog, setIsLog] = useState(false);
    const [user, setUser] = useState(null)
    const location = useLocation();
-console.log(location.pathname);
 
  return (
    <AuthContext.Provider value={{isLog, setIsLog} }>

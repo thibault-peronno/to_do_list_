@@ -10,7 +10,6 @@ class RegisterService {
     async newUser(userDatas){
         const axiosResponse = await axiosInstance.post("auth/register", userDatas)
         .then((response)=>{
-            console.log(response);
             return response;
         })
         .catch((error)=>{
