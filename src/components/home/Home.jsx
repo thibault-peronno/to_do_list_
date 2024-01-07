@@ -29,7 +29,6 @@ function Home() {
     const fetchTasks = async () => {
       try {
         const tasksData = await tasksService.findAll(user.id);
-        console.log(tasksData);
         setTasks(tasksData.data);
       } catch (error) {
         console.log(error);
@@ -49,16 +48,12 @@ function Home() {
     };
     try {
       const newTask = await tasksService.new(newvalue);
-      console.log("new task", newTask);
-      if (newTask.response.status === 201) {
+      if (newTask.status === 201) {
         setTasks((tasks) => [...tasks, newTask.data[0]]);
         setTask("");
       } else if (newTask.response.status === 400) {
-        console.log(newTask.response.data.details);
         newTask.response.data.details.forEach((error) => {
-          console.log(error.message);
           setErrorValidation(errorValidation=>[...errorValidation, error.message]);
-          console.log(errorValidation);
           setShowMessage(true);
           setTimeout(() => {
             setShowMessage(false), setErrorValidation([]);
@@ -71,25 +66,18 @@ function Home() {
   };
   const updatedTask = async (evt, updateValue) => {
     evt.preventDefault();
-    console.log(updateTask);
     const updatedTask = {
       description: updateValue.description,
       isDone: updateValue.isDone,
       id: updateValue.id,
     };
-    console.log(updatedTask);
     try {
       const taskUpdated = await tasksService.update(updatedTask);
       if (taskUpdated.status === 500) {
-        console.log(taskUpdated.data.message.details);
-        console.log(taskUpdated.data.error);
         setErrorValidation(taskUpdated.data.error);
-        console.log(errorValidation);
         if (taskUpdated.data.message.details) {
           taskUpdated.data.message.details.forEach((error) => {
-            console.log(error.message);
             setErrorValidation([...errorValidation, error.message]);
-            console.log(errorValidation);
           });
         }
         setShowMessage(true);
@@ -106,23 +94,18 @@ function Home() {
   };
   const handleDelete = async (evt, task_id) => {
     evt.preventDefault();
-    console.log(evt, task_id);
     try {
       const deleteTask = await tasksService.delete(task_id);
-      console.log(deleteTask);
       const newListTasks = await tasksService.findAll(user.id);
       setTasks(newListTasks.data);
     } catch (error) {
       console.log(error);
     }
-    // axiosInstance.delete('task/'+task_id)
   };
   const handleToggleDone = async (evt, task) => {
     evt.preventDefault();
-    console.log(evt, task);
     try {
       const isDone = await tasksService.updateisDone(task);
-      console.log(isDone);
       const newListTasks = await tasksService.findAll(user.id);
       setTasks(newListTasks.data);
     } catch (error) {
@@ -130,7 +113,6 @@ function Home() {
     }
   };
   const toggleIsActif = (task) => {
-    console.log(task);
     setUpdateIsActif(true);
     setUpdateTask(task);
   };
@@ -142,7 +124,6 @@ function Home() {
       ...updateTask,
       ...(updateTask.description = updatedTask),
     }));
-    console.log(updateTask);
   };
   const logout = (evt) => {
     evt.preventDefault();
@@ -196,7 +177,6 @@ function Home() {
         </span>
         <p className="home_p">Une nouvelle tâche ?</p>
         {errorValidation.map((message) => {
-          console.log("map", message, showMessage);
           return (
             <p className={showMessage ? "displayErrorMessage" : "none"}>
               {message}

@@ -41,7 +41,6 @@ function Profil() {
       id: user.id
     };
     const updatedProfil = await profilServie.udpateUser(updateDatas, user.id);
-    // console.log('profil ligne 54', updatedProfil);
     if(updatedProfil.status === 400){
       updatedProfil.data.details.forEach((error)=>{
         setErrordMessage((errordMessage)=>[...errordMessage, error.message]);
@@ -51,7 +50,6 @@ function Profil() {
           }, 5000);
       })
     }else if(updatedProfil.status == 200){
-      // console.log('ligne 54 profil', updatedProfil.status);
       setUser(updatedProfil.data.data[0]);
       setValidatedMessage(updatedProfil.data.message, updatedProfil.data.status);
       setShowMessage(true);
@@ -89,7 +87,6 @@ function Profil() {
             <span className="container-infos_names_mail">
                 <p className={showMessage ? "displayValidatedMessage" : "none"}>{ validatedMessage }</p>
                 {errordMessage.map((message) => {
-            console.log("map", message, showMessage);
             return (
               <p className={showMessage ? "displayErrorMessage" : "none"}>
                 {message}
