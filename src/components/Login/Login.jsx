@@ -1,20 +1,15 @@
 import "./login.scss";
-import { useState } from "react";
-import { Link, useNavigate  } from "react-router-dom";
-import { useContext } from "react";
-import axios from "axios";
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext, UserContext } from "../../App.jsx";
-
-const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000/api/",
-  withCredentials: true,
-});
+import AuthService from "../../services/auth.service.js";
 
 function Login() {
-  const { isLog, setIsLog } = useContext(AuthContext);
+  const authService = new AuthService();
+  const { setIsLog } = useContext(AuthContext);
   const { setUser } = useContext(UserContext);
   const [email, setEmail] = useState("");
-  const [password, setPasswsord] = useState("");
+  const [password, setPassword] = useState("");
   const [showMessage, setShowMessage] = useState(false);
   const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
@@ -23,32 +18,31 @@ function Login() {
     if (name == "email") {
       setEmail(value);
     } else if (name == "password") {
-      setPasswsord(value);
+      setPassword(value);
     }
   };
 
-  const handleSubmitLogin = (evt) => {
+  const handleSubmitLogin = async (evt) => {
     evt.preventDefault();
-    axiosInstance.post("auth/login", {
-        identifiant: email,
-        password: password,
-      })
-      .then(function (response) {
+
+    try {
+      const login = await authService.login(email, password);
+      if (login.status == 200) {
         setIsLog(true);
-        setUser(response.data);
-        navigate("/")
-      })
-      .catch(function (error) {
-        console.log(error);
-        if(error.response.status === 401){
-          /** We do not display an explicite message, for do not give more information what the user need. Because that could be a hacker */
-          setLoginError('Identifiant ou mot de passe incorrect');
-          setShowMessage(true);
-          setTimeout(() => {
-            setShowMessage(false), setLoginError("");
-          }, 5000);
-        }
-      });
+        setUser(login.data);
+        navigate("/");
+      } else if (login.response.status === 401) {
+        /** We do not display an explicite message, for do not give more information what the user need. Because that could be a hacker */
+        setLoginError("Identifiant ou mot de passe incorrect");
+        setShowMessage(true);
+        setTimeout(() => {
+          setShowMessage(false);
+          setLoginError("");
+        }, 5000);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -60,8 +54,8 @@ function Login() {
         <div className="login_form-input">
           <h2 className="login_h2">Se connecter</h2>
           <p className={showMessage ? "displayErrorMessage" : "none"}>
-                {loginError}
-              </p>
+            {loginError}
+          </p>
           <form className="login-form" onSubmit={handleSubmitLogin}>
             <label htmlFor="email" className="login-form_label">
               Identifiant
@@ -104,10 +98,10 @@ function Login() {
           </p>
           <div className="social-media">
             <Link to="https://www.linkedin.com/in/thibault-peronno/">
-            <img src="../assets/svg/linkedin.svg" alt="" className="icon"/>
+              <img src="../assets/svg/linkedin.svg" alt="" className="icon" />
             </Link>
             <Link to="https://github.com/thibault-peronno">
-            <img src="../assets/svg/github.svg" alt="" className="icon"/>
+              <img src="../assets/svg/github.svg" alt="" className="icon" />
             </Link>
           </div>
         </div>

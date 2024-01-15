@@ -39,8 +39,8 @@ function RegisterPage() {
       const newUserRegitered = await registerService.newUser(newUser);
       console.log(newUserRegitered);
       if (newUserRegitered.status == 400) {
-        if(newUserRegitered.data.error){
-          newUserRegitered.data.error.details.forEach((error) => {
+        if(newUserRegitered.data.details != []){
+          newUserRegitered.data.details.forEach((error) => {
             /**
              * In React, when you're updating state based on the previous state, you should use a function inside your setState call. This function will receive the previous state as its argument and should return the new state.
               Here's a breakdown of the line setRegisterError(prevState => [...prevState, error.message]);:
@@ -55,7 +55,7 @@ function RegisterPage() {
               error.message,
             ]);
           });
-          if (newUserRegitered.data.error.details.length > 0) {
+          if (newUserRegitered.data.details.length > 0) {
             setShowMessage(true);
             setTimeout(() => {
               setShowMessage(false), setRegisterError([]);
