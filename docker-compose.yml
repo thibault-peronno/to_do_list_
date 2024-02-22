@@ -9,7 +9,7 @@ services:
       - "443:443"
     volumes:
       - ./config/nginx:/etc/nginx/conf.d
-      - ./index.html:/var/www/html/index.html
+      - ./dist:/var/www/html/
       # ./backend/config/letsencrypt:/backend/config/letsencrypt:ro
       # ./certbot/data:/var/www/certbot
     command: [nginx-debug, '-g', 'daemon off;']
