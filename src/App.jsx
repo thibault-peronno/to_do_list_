@@ -1,21 +1,22 @@
-import { useState, createContext } from "react";
 import './app.scss';
+import { useState, createContext } from "react";
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 
 import Login from "./components/login/Login";
 import Home from "./components/home/Home";
 import Register from "./components/register/Register";
 import Profil from "./components/profil/Profil";
+
 export const AuthContext = createContext(false);
 export const UserContext = createContext(null)
 
 function App(){
    const [isLog, setIsLog] = useState(false);
-   const [user, setUser] = useState(null)
+   const [user, setUser] = useState(null);
    const location = useLocation();
 
  return (
-   <AuthContext.Provider value={{isLog, setIsLog} }>
+   <AuthContext.Provider value={{isLog, setIsLog}}>
     <UserContext.Provider value= {{user, setUser}}>
     <div className="stroke">
       {!isLog && (

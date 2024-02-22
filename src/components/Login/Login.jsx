@@ -84,7 +84,7 @@ function Login() {
               }
             />
             <button type="submit" className="login-form_btn">
-              Se connnecter
+              Se connecter
             </button>
             <Link to="/register">
               <p>Se créer un compte</p>
