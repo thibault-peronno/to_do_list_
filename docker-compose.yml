@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  nginx:
+    container_name: nginx_interface_to_do_list
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "8082:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./index.html:/var/www/html/index.html
+      # ./backend/config/letsencrypt:/backend/config/letsencrypt:ro
+      # ./certbot/data:/var/www/certbot
+    command: [nginx-debug, '-g', 'daemon off;']
