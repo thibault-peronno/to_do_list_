@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./home.scss";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000/api/",
+  baseURL: "https://api-to-do-list.thibault-peronno.fr",
   withCredentials: true,
   credentials: "include",
 });
