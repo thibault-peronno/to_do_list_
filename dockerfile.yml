@@ -1,0 +1,9 @@
+FROM node:latest
+
+WORKDIR /web_to_do_list
+
+COPY ./ ./
+
+# CMD ["sh", "-c", "rm -rf node_modules && npm prune && npm install && chmod -R 777 /web_to_do_list/node_modules && npm run build "]
+RUN chmod +x /web_to_do_list/start.sh
+CMD ["sh", "-c", "./start.sh"]
