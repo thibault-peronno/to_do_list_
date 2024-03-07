@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://api-to-do-list.thibault-peronno.fr",
+  baseURL: "https://api-to-do-list.thibault-peronno.fr/api",
   withCredentials: true,
   credentials: "include",
 });
