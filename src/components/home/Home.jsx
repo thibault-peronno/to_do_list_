@@ -173,7 +173,7 @@ function Home() {
               alt="se déconnecter"
             />
           </button>
-          <img src="" alt="" />
+          {/* <img src="" alt="" /> */}
         </span>
         <p className="home_p">Une nouvelle tâche ?</p>
         {errorValidation.map((message) => {
