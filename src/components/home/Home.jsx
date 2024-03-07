@@ -169,7 +169,7 @@ function Home() {
           <button className="edit-button" onClick={(e) => logout(e)}>
             <img
               className="home_tasks_icon icon"
-              src="../../../public/assets/svg/logout.svg"
+              src="../assets/svg/logout.svg"
               alt="se déconnecter"
             />
           </button>
@@ -216,7 +216,7 @@ function Home() {
                   >
                     <img
                       className="home_tasks_icon icon"
-                      src="../../../public/assets/svg/edit.svg"
+                      src="../assets/svg/edit.svg"
                       alt="editer la tâche"
                     />
                   </button>
@@ -226,7 +226,7 @@ function Home() {
                   >
                     <img
                       className="home_tasks_icon icon"
-                      src="../../../public/assets/svg/delete.svg"
+                      src="../assets/svg/delete.svg"
                       alt="supprimer la tâche"
                     />
                   </button>

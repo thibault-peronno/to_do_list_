@@ -68,7 +68,7 @@ function Profil() {
             <button className="edit-button" onClick={() => updateProfil()}>
               <img
                 className="profil_tasks_icon icon"
-                src="../../../public/assets/svg/edit.svg"
+                src="../assets/svg/edit.svg"
                 alt="editer l'utilisateur'"
               />
             </button>
@@ -78,7 +78,7 @@ function Profil() {
             >
               <img
                 className="profil_tasks_icon icon"
-                src="../../../public/assets/svg/delete.svg"
+                src="../assets/svg/delete.svg"
                 alt="supprimer l'utilisateur'"
               />
             </button>
