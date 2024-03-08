@@ -37,7 +37,6 @@ function RegisterPage() {
     };
     try {
       const newUserRegitered = await registerService.newUser(newUser);
-      console.log(newUserRegitered);
       if (newUserRegitered.status == 400) {
         if(newUserRegitered.data.details != []){
           newUserRegitered.data.details.forEach((error) => {

@@ -13,19 +13,3 @@ services:
 volumes:
   dist_volume:
     name: "web_to_do_list_dist_volume"
-  # Nginx service
-  # nginx_web_list:
-  #   container_name: nginx_interface_to_do_list
-  #   image: nginx:alpine
-  #   restart: always
-  #   ports:
-  #     - "8083:80"
-  #     - "445:443"
-  #   depends_on:
-  #     - app
-  #   volumes:
-  #     - ./config/nginx:/etc/nginx/conf.d
-  #     - ./dist:/var/www/html/
-  #     - /etc/letsencrypt/live/thibault-peronno.fr/fullchain.pem:/etc/nginx/ssl/fullchain.pem
-  #     - /etc/letsencrypt/live/thibault-peronno.fr/privkey.pem:/etc/nginx/ssl/privkey.pem
-  #   command: [nginx-debug, '-g', 'daemon off;']

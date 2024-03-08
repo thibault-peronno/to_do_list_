@@ -66,13 +66,11 @@ function Home() {
   };
   const updatedTask = async (evt, updateValue) => {
     evt.preventDefault();
-    console.log(updateValue);
     const updatedTask = {
       description: updateValue.description,
       isDone: updateValue.isDone,
       id: updateValue.id,
     };
-    console.log(updatedTask);
     try {
       const taskUpdated = await tasksService.update(updatedTask);
       if (taskUpdated.status === 500) {
@@ -122,7 +120,6 @@ function Home() {
     setUpdateIsActif(false);
   };
   const UpdateFieldTask = (updatedTask) => {
-    console.log(updatedTask)
     setUpdateTask((updateTask) => ({
       ...updateTask,
       description : updatedTask,
