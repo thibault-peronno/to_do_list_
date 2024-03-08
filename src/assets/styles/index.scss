@@ -1,0 +1,179 @@
+:root {
+  font-family: Sarpanch, Arial, sans-serif;
+  line-height: 1.5;
+
+  color: black;
+  background-color: white;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-decoration: none;
+}
+
+#root {
+  margin: 0 auto;
+  padding: 10px;
+  width: 100vw;
+  height: 100%;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  height: 100vh;
+}
+
+section {
+  height: 100%;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.2;
+  text-align: center;
+}
+
+h2 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  color: #052d50;
+}
+
+label {
+  font-size: 1rem;
+}
+
+input {
+  height: 45px;
+  border: 1px solid black;
+  border-radius: 2px;
+  margin: 10px 0;
+  padding: 5px;
+  font-size: 1rem;
+}
+
+button {
+  border-radius: 8px;
+  color: white;
+  border: 1px solid transparent;
+  margin: 0.5em;
+  padding: 0.6em 1.2em;
+  font-size: 1.2em;
+  font-weight: bold;
+  font-family: inherit;
+  background-color: #052d50;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.cancel-button {
+  color: #880909;
+  border-radius: inherit;
+  border: none;
+  margin: 0.5em;
+  padding: 0;
+  font-size: 1.5rem;
+  font-weight: normal;
+  font-family: inherit;
+  background-color: transparent;
+  transition: none;
+}
+
+.valid-button {
+  color: #098810;
+  border-radius: inherit;
+  border: none;
+  margin: 0.5em;
+  padding: 0;
+  font-size: 1.5rem;
+  font-weight: normal;
+  font-family: inherit;
+  background-color: transparent;
+  transition: none;
+}
+
+.icon {
+  width: 30px;
+}
+
+.delete-button,
+.edit-button {
+  border-radius: none;
+  color: transparent;
+  border: none;
+  margin: 0.5em;
+  padding: 0;
+  font-size: 0em;
+  font-weight: none;
+  font-family: inherit;
+  background-color: transparent;
+  transition: none;
+}
+.delete-button:focus,
+.delete-button:focus-visible,
+.edit-button:focus,
+.edit-button:focus-visible {
+  outline: none;
+}
+
+.login_footer-text {
+  text-align: center;
+}
+
+.displayValidatedMessage {
+  display: block;
+  font-size: 1.2em;
+  color: #098810;
+  text-align: start;
+  margin: 2px 0;
+}
+
+.none {
+  display: none;
+}
+
+.displayErrorMessage {
+  display: block;
+  font-size: 1.2em;
+  color: #880909;
+  text-align: start;
+  margin: 2px 0;
+}
+
+.social-media {
+  margin: 10px 0 0 0;
+  text-align: center;
+}
+
+// @media (prefers-color-scheme: light) {
+//   :root {
+//     color: #213547;
+//     background-color: #ffffff;
+//   }
+
+//   a:hover {
+//     color: #747bff;
+//   }
+
+//   button {
+//     background-color: #f9f9f9;
+//   }
+// }

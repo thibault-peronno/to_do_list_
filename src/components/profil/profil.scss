@@ -1,0 +1,110 @@
+.form_isActif{
+    display: block;
+    width: 100%;
+    height: 90vh;
+}
+
+.profil {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  height: 90vh;
+  width: 100%;
+  &_container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &-btns {
+      text-align: end;
+    }
+    &-infos {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-content: center;
+      width: 100%;
+      height: 50%;
+      align-self: center;
+      justify-content: space-between;
+    }
+  }
+  &_link{
+    width: 100%;
+    margin: auto;
+    text-align: center;
+  }
+  &_button {
+    color: #052d50;
+    border: #052d50 2px solid;
+    background-color: white;
+    margin: 0.5em 0;
+  }
+  &_about {
+    text-align: center;
+  }
+}
+
+.container-names {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  align-self: center;
+  margin: 20px 0;
+}
+.container-mail {
+  text-align: center;
+}
+
+.container-infos_names_mail{
+    display: flex;
+    flex-direction: column;
+}
+
+.about{
+  text-align: center;
+}
+
+.form_container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  height: 100%;
+
+  &-btns{
+    width: 100%;
+    text-align: end;
+  }
+  &-infos{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-self: center;
+  }
+}
+
+@media screen and (min-width: 699px) {
+  .profil {
+    &_container {
+      width: 100%;
+
+      &-infos {
+        width: 30%;
+      }
+    }
+    &_button {
+      width: 100%;
+    }
+    
+  }
+
+  .form_container{  
+    &-infos{
+      width: 30%;
+    }
+}
+}

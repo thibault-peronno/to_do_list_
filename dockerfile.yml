@@ -1,0 +1,8 @@
+FROM node:latest
+
+WORKDIR /web_to_do_list
+
+COPY ./ ./
+
+RUN chmod +x /web_to_do_list/start.sh
+CMD ["sh", "-c", "./start.sh"]

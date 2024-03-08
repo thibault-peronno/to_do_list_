@@ -1,0 +1,27 @@
+.register{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+
+    &_h2_form{
+        width: 95%;
+        margin: auto;
+    }
+
+    &_form{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen and (min-width: 699px) {
+    .register{
+    
+        &_h2_form{
+            width: 20%;
+        }
+    
+        &_form{}
+    }
+  }

@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  # service Node JS
+  app:
+    container_name: web_to_do_list
+    build:
+      context: ./
+      dockerfile: dockerfile.yml
+    ports:
+      - "3000"
+    volumes:
+      - dist_volume:/web_to_do_list/dist
+volumes:
+  dist_volume:
+    name: "web_to_do_list_dist_volume"

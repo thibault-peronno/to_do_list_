@@ -1,0 +1,107 @@
+.home-section {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: no-wrap;
+}
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 90vh;
+  &_name {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+    button{
+      margin-left: 10px
+    }
+  }
+  &_p {
+  }
+  &_form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  &_tasks_task {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: start;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  &_tasks-task_input {
+    display: flex;
+    align-items: center;
+  }
+
+  &_tasks-btn{
+    align-self: end;
+  }
+}
+input[type=checkbox] {
+    margin: 0 10px 0 0;
+    width: 20px;
+    box-sizing: border-box;
+  }
+.footer {
+  text-align: center;
+}
+
+.update_isActif{
+  display: block;
+  width: 300px;
+  background-color: #E8E9EA;
+  border-radius: 5px;
+  padding: 10px;
+  position: fixed;
+  left: 12%;
+  top: 40%;
+}
+.update{
+ display: none;
+
+  &_text{
+    width: 100%;
+    background-color: white;
+    height: 90px;
+    margin: auto;
+    border: 1px solid;
+  }
+  &_btns{
+
+  }
+}
+
+@media screen and (min-width: 699px) {
+  .home_form {
+    width: 30%;
+  }
+  .home{
+    &_taks-div {
+      width: 30%;
+    }
+
+    &_tasks_task {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: start;
+      justify-content: space-between;
+    }
+
+    &_tasks-btn{
+      align-self: end;
+    }
+
+  }
+
+  .update_isActif{
+    left: 40%;
+  }
+  
+}

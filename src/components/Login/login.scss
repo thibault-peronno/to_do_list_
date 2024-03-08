@@ -1,0 +1,44 @@
+.login{
+    height: 100%;
+}
+
+.login_form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+.login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+.login_h2{
+    margin:0 0 10px 0;
+}
+
+.login_form-input{
+    width: 95%;
+    margin: auto;
+}
+
+.login_footer{
+    margin-bottom: 5px;
+}
+
+.owner{
+    color: #052d50;
+}
+
+.login_footer-text{
+    font-size: 14px;
+}
+
+
+@media screen and (min-width: 699px) {
+    .login_form-input{
+        width: 20%;
+    }
+  }
