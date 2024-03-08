@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  # service Node JS
+  app:
+    container_name: web_to_do_list
+    build:
+      context: ./
+      dockerfile: dockerfile.yml
+    ports:
+      - "3000"
+    volumes:
+      - dist_volume:/web_to_do_list/dist
+volumes:
+  dist_volume:
+    name: "web_to_do_list_dist_volume"
+  # Nginx service
+  # nginx_web_list:
+  #   container_name: nginx_interface_to_do_list
+  #   image: nginx:alpine
+  #   restart: always
+  #   ports:
+  #     - "8083:80"
+  #     - "445:443"
+  #   depends_on:
+  #     - app
+  #   volumes:
+  #     - ./config/nginx:/etc/nginx/conf.d
+  #     - ./dist:/var/www/html/
+  #     - /etc/letsencrypt/live/thibault-peronno.fr/fullchain.pem:/etc/nginx/ssl/fullchain.pem
+  #     - /etc/letsencrypt/live/thibault-peronno.fr/privkey.pem:/etc/nginx/ssl/privkey.pem
+  #   command: [nginx-debug, '-g', 'daemon off;']

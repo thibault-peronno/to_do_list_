@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./home.scss";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000/api/",
+  baseURL: "https://api-to-do-list.thibault-peronno.fr/api",
   withCredentials: true,
   credentials: "include",
 });
@@ -66,11 +66,13 @@ function Home() {
   };
   const updatedTask = async (evt, updateValue) => {
     evt.preventDefault();
+    console.log(updateValue);
     const updatedTask = {
       description: updateValue.description,
       isDone: updateValue.isDone,
       id: updateValue.id,
     };
+    console.log(updatedTask);
     try {
       const taskUpdated = await tasksService.update(updatedTask);
       if (taskUpdated.status === 500) {
@@ -120,9 +122,10 @@ function Home() {
     setUpdateIsActif(false);
   };
   const UpdateFieldTask = (updatedTask) => {
+    console.log(updatedTask)
     setUpdateTask((updateTask) => ({
       ...updateTask,
-      ...(updateTask.description = updatedTask),
+      description : updatedTask,
     }));
   };
   const logout = (evt) => {
@@ -169,11 +172,11 @@ function Home() {
           <button className="edit-button" onClick={(e) => logout(e)}>
             <img
               className="home_tasks_icon icon"
-              src="../../../public/assets/svg/logout.svg"
+              src="../assets/svg/logout.svg"
               alt="se déconnecter"
             />
           </button>
-          <img src="" alt="" />
+          {/* <img src="" alt="" /> */}
         </span>
         <p className="home_p">Une nouvelle tâche ?</p>
         {errorValidation.map((message) => {
@@ -216,7 +219,7 @@ function Home() {
                   >
                     <img
                       className="home_tasks_icon icon"
-                      src="../../../public/assets/svg/edit.svg"
+                      src="../assets/svg/edit.svg"
                       alt="editer la tâche"
                     />
                   </button>
@@ -226,7 +229,7 @@ function Home() {
                   >
                     <img
                       className="home_tasks_icon icon"
-                      src="../../../public/assets/svg/delete.svg"
+                      src="../assets/svg/delete.svg"
                       alt="supprimer la tâche"
                     />
                   </button>
