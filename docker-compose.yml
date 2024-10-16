@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 services:
   # service Node JS
   app:
@@ -10,6 +10,8 @@ services:
       - "3000"
     volumes:
       - dist_volume:/web_to_do_list/dist
+    networks:
+      - projects_thibault_network
 volumes:
   dist_volume:
     name: "web_to_do_list_dist_volume"
